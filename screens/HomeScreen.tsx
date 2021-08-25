@@ -1,7 +1,21 @@
-import * as React from "react";
-import { View, Text } from "react-native";
-import { Chat } from "../components/Chat";
+import React from "react";
+import { View, Button } from "react-native";
 
-export function HomeScreen() {
-  return <Chat></Chat>;
-}
+export const HomeScreen = ({ navigation }: any) => {
+  return (
+    <View>
+      <Button
+        title="Register"
+        onPress={() => navigation.navigate("Register")}
+      ></Button>
+      <Button
+        title="go to login"
+        onPress={() => navigation.navigate("Chat")}
+      ></Button>
+      <Button
+        title="go to get"
+        onPress={() => navigation.navigate("Image")}
+      ></Button>
+    </View>
+  );
+};
