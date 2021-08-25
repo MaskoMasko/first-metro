@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Image, ScrollView, Button, TextInput } from "react-native";
 import Pusher from "pusher-js/react-native";
 import axios from "axios";
+import { store } from "../store/store";
 export const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +11,10 @@ export const Login = ({ navigation }: any) => {
   const [data, setData] = useState<any>({
     data: { name: "", email: "" },
   });
+
+  React.useEffect(() => {
+    logout();
+  }, []);
   const logout = () => {
     axios({
       method: "post",
@@ -57,7 +62,7 @@ export const Login = ({ navigation }: any) => {
       url: "http://mockapi.ddns.net/sessionData",
     }).then((res: any) => {
       setData(res);
-      console.log(res.data);
+      store.setUser(res.data);
     });
   };
   // Want to use async/await? Add the async keyword to your outer function/method.
