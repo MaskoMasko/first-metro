@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import axios from "axios";
 import { CustomButton } from "./CustomButton";
+import { store } from "../store/store";
+import { observer } from "mobx-react-lite";
 
-export const Register = ({ navigation }) => {
+export const Register = observer(({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -97,8 +99,6 @@ export const Register = ({ navigation }) => {
           placeholder="name"
           onChangeText={(e) => setName(e)}
         ></TextInput>
-        {/* <Text>Name:</Text>
-      <TextInput value={name} onChangeText={(e) => setName(e)}></TextInput> */}
         <Text
           style={{
             fontWeight: "bold",
@@ -139,15 +139,20 @@ export const Register = ({ navigation }) => {
           title="SUMBIT"
           backgroundColor="#5AC013"
           onPress={() => {
+            console.log("SEND");
             sendThat();
+            console.log("LOGIN");
+            store.login(email.toLowerCase(), password);
+            // store.islogged();
+            console.log("SESSION");
+            store.session();
+            // navigation.navigate("Chat");
           }}
         ></CustomButton>
-        {password === "" ? null : password === password1 ? (
-          <Text>Welcome</Text>
-        ) : (
-          <Text>Something is wrong....</Text>
+        {password === "" ? null : password === password1 ? null : (
+          <Text>Wrong Password...</Text>
         )}
       </View>
     </View>
   );
-};
+});

@@ -1,14 +1,16 @@
 import { types, flow } from "mobx-state-tree";
 import axios from "axios";
 
+const { maybeNull } = types;
+
 const UserModel = types.model("iva", {
-  created_at: types.string,
-  email: types.string,
-  email_verified_at: types.null,
-  id: types.identifierNumber,
-  image: types.string,
-  name: types.string,
-  updated_at: types.string,
+  created_at: maybeNull(types.string),
+  email: maybeNull(types.string),
+  email_verified_at: maybeNull(types.null),
+  id: maybeNull(types.identifierNumber),
+  image: maybeNull(types.string),
+  name: maybeNull(types.string),
+  updated_at: maybeNull(types.string),
 });
 
 const UserStore = types
@@ -69,6 +71,7 @@ const UserStore = types
           url: "http://mockapi.ddns.net/checkIfLoggedIn",
         }).then((res: any) => {
           self.checkIfLogged(res);
+          console.log(res.data);
         });
       },
       session: () => {
