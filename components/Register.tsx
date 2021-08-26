@@ -139,13 +139,10 @@ export const Register = observer(({ navigation }) => {
           title="SUMBIT"
           backgroundColor="#5AC013"
           onPress={() => {
-            console.log("SEND");
             sendThat();
-            console.log("LOGIN");
-            store.login(email.toLowerCase(), password);
+            // store.login(email.toLowerCase(), password);
             // store.islogged();
-            console.log("SESSION");
-            store.session();
+            // store.session();
             // navigation.navigate("Chat");
           }}
         ></CustomButton>

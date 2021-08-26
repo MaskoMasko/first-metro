@@ -20,6 +20,14 @@ export const Login = ({ navigation }: any) => {
   React.useEffect(() => {
     store.logout();
   }, []);
+  const nisto = () => {
+    axios({
+      method: "get",
+      url: "http://mockapi.ddns.net/getMyChats?id=1",
+    }).then((res: any) => {
+      console.log(res);
+    });
+  };
 
   // Want to use async/await? Add the async keyword to your outer function/method.
   // Enable pusher logging - don't include this in production
@@ -56,6 +64,7 @@ export const Login = ({ navigation }: any) => {
         title="SUMBIT"
         backgroundColor="#5AC013"
         onPress={() => {
+          store.login(email.toLowerCase(), password);
           if (password != "" && email != "") {
             setEmpty(false);
             store.login(email.toLowerCase(), password);

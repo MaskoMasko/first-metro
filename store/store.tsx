@@ -1,16 +1,14 @@
-import { types, flow } from "mobx-state-tree";
+import { types, flow, getRoot } from "mobx-state-tree";
 import axios from "axios";
 
-const { maybeNull } = types;
-
 const UserModel = types.model("iva", {
-  created_at: maybeNull(types.string),
-  email: maybeNull(types.string),
-  email_verified_at: maybeNull(types.null),
-  id: maybeNull(types.identifierNumber),
-  image: maybeNull(types.string),
-  name: maybeNull(types.string),
-  updated_at: maybeNull(types.string),
+  created_at: types.string,
+  email: types.string,
+  email_verified_at: types.null,
+  id: types.identifierNumber,
+  image: types.string,
+  name: types.string,
+  updated_at: types.string,
 });
 
 const UserStore = types
@@ -79,9 +77,8 @@ const UserStore = types
           method: "get",
           url: "http://mockapi.ddns.net/sessionData",
         }).then((res: any) => {
-          self.setUser(res.data);
+          // self.setUser(res.data);
           console.log("SESSION:");
-
           console.log(res.data);
         });
       },
