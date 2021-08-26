@@ -24,7 +24,11 @@ function App() {
           options={{ headerShown: false }}
           component={RegisterScreen}
         />
-        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen
+          name="Chat"
+          options={{ headerShown: false }}
+          component={ChatScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

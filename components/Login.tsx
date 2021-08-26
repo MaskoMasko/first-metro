@@ -47,6 +47,16 @@ export const Login = ({ navigation }: any) => {
         marginVertical: 20,
       }}
     >
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          margin: 10,
+          marginTop: 0,
+        }}
+      >
+        Login
+      </Text>
       <TextInput
         style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
         value={email}

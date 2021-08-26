@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   loginBox: {
     width: 350,
-    height: 300,
+    height: 360,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: {

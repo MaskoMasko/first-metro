@@ -79,7 +79,7 @@ export const Register = observer(({ navigation }) => {
       <View
         style={{
           width: 350,
-          height: 550,
+          height: 570,
           backgroundColor: "white",
           justifyContent: "center",
         }}
