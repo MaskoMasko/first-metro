@@ -2,8 +2,9 @@ import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import React, { useState } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import axios from "axios";
+import { CustomButton } from "./CustomButton";
 
-export const Register = () => {
+export const Register = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,33 +66,88 @@ export const Register = () => {
   formData.append("password_confirmation", password1);
   formData.append("name", name);
   return (
-    <View>
-      <Text>Name:</Text>
-      <TextInput value={name} onChangeText={(e) => setName(e)}></TextInput>
-      <Text>Select FILE:</Text>
-      {/* <Button title="get" onPress={openCamera}></Button> */}
-      <Button title="get yes" onPress={openLib}></Button>
-      <Text>Email:</Text>
-      <TextInput
-        value={email}
-        onChangeText={(e) => setEmail(e.toLowerCase())}
-      ></TextInput>
-      <Text>Password:</Text>
-      <TextInput
-        value={password}
-        onChangeText={(e) => setPassword(e)}
-      ></TextInput>
-      <Text>Confirm Password:</Text>
-      <TextInput
-        value={password1}
-        onChangeText={(e) => setPassword1(e)}
-      ></TextInput>
-      <Button title="submit" onPress={sendThat}></Button>
-      {password === "" ? null : password === password1 ? (
-        <Text>Welcome</Text>
-      ) : (
-        <Text>Something is wrong....</Text>
-      )}
+    <View
+      style={{
+        backgroundColor: "#9CCB75",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <View
+        style={{
+          width: 350,
+          height: 550,
+          backgroundColor: "white",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            margin: 10,
+          }}
+        >
+          Register
+        </Text>
+        <TextInput
+          style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
+          value={name}
+          placeholder="name"
+          onChangeText={(e) => setName(e)}
+        ></TextInput>
+        {/* <Text>Name:</Text>
+      <TextInput value={name} onChangeText={(e) => setName(e)}></TextInput> */}
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 14,
+            marginHorizontal: 10,
+            marginVertical: 5,
+          }}
+        >
+          Select FILE:
+        </Text>
+        {/* <Button title="get" onPress={openCamera}></Button> */}
+        <CustomButton
+          title="Get Image"
+          color="black"
+          backgroundColor="#BAF094"
+          onPress={openLib}
+        ></CustomButton>
+        <TextInput
+          style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
+          value={email}
+          placeholder="email"
+          onChangeText={(e) => setEmail(e)}
+        ></TextInput>
+        <TextInput
+          style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
+          value={password}
+          placeholder="password"
+          onChangeText={(e) => setPassword(e)}
+        ></TextInput>
+        <TextInput
+          style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
+          value={password1}
+          placeholder="confirm password"
+          onChangeText={(e) => setPassword1(e)}
+        ></TextInput>
+        <CustomButton
+          color="white"
+          title="SUMBIT"
+          backgroundColor="#5AC013"
+          onPress={() => {
+            sendThat();
+          }}
+        ></CustomButton>
+        {password === "" ? null : password === password1 ? (
+          <Text>Welcome</Text>
+        ) : (
+          <Text>Something is wrong....</Text>
+        )}
+      </View>
     </View>
   );
 };

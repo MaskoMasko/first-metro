@@ -8,19 +8,18 @@ export const HomeScreen = ({ navigation }: any) => {
     <View style={styles.loginContainer}>
       <View style={styles.loginBox}>
         <Login navigation={navigation}></Login>
-        <Text
-          style={{ marginLeft: 15 }}
-          onPress={() => navigation.navigate("Register")}
-        >
-          You dont have acc...
-          <Text
-            style={{
-              color: "#5AC013",
-            }}
-          >
-            Create Account
+        <View style={{ alignItems: "center" }}>
+          <Text onPress={() => navigation.navigate("Register")}>
+            You dont have acc...
+            <Text
+              style={{
+                color: "#5AC013",
+              }}
+            >
+              Create Account
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
     </View>
   );

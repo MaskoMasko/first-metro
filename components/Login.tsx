@@ -5,7 +5,7 @@ import {
   Image,
   ScrollView,
   Button,
-  Alert,
+  Modal,
   TextInput,
 } from "react-native";
 import Pusher from "pusher-js/react-native";
@@ -64,11 +64,12 @@ export const Login = ({ navigation }: any) => {
               store.session();
               navigation.navigate("Chat");
             }
+          } else {
+            setEmpty(true);
           }
-          setEmpty(true);
         }}
       ></CustomButton>
-      <View>{empty ? Alert.alert("I will fold u BIČ") : null}</View>
+      <View>{empty ? <Text>Something went wrong...</Text> : null}</View>
     </View>
   );
 };

@@ -14,12 +14,16 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          options={{headerShown:false}}
+          options={{ headerShown: false }}
           name="Home"
           component={HomeScreen}
         />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen
+          name="Register"
+          options={{ headerShown: false }}
+          component={RegisterScreen}
+        />
         <Stack.Screen name="Chat" component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
