@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  ScrollView,
-  Button,
-  Alert,
-  TextInput,
-} from "react-native";
+import { Text, View, Image, ScrollView, Button, TextInput } from "react-native";
 import Pusher from "pusher-js/react-native";
 import axios from "axios";
 import { store } from "../store/store";
-import { CustomButton } from "./CustomButton";
 export const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [empty, setEmpty] = useState(false);
 
   React.useEffect(() => {
-    store.logout();
+    if (store.isLogged) {
+      store.logout();
+    }
   }, []);
 
   // Want to use async/await? Add the async keyword to your outer function/method.
@@ -34,42 +27,54 @@ export const Login = ({ navigation }: any) => {
     // console.log(JSON.stringify(data));
   });
   return (
-    <View
-      style={{
-        marginVertical: 20,
-      }}
-    >
-      <TextInput
-        style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
-        value={email}
-        placeholder="email"
-        onChangeText={(e) => setEmail(e)}
-      ></TextInput>
-      <TextInput
-        placeholder="password"
-        style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
-        value={password}
-        onChangeText={(e) => setPassword(e)}
-      ></TextInput>
-      <CustomButton
-        color="white"
-        title="SUMBIT"
-        backgroundColor="#5AC013"
-        onPress={() => {
-          if (password != "" && email != "") {
-            setEmpty(false);
-            store.login(email.toLowerCase(), password);
-            store.islogged();
-            if (store.isLogged) {
-              store.session();
-              navigation.navigate("Chat");
-            }
-          }
-          setEmpty(true);
+    <ScrollView>
+      <View
+        style={{
+          borderWidth: 3,
+          borderColor: "black",
+          backgroundColor: "aliceblue",
+          marginVertical: 20,
         }}
-      ></CustomButton>
-      <View>{empty ? Alert.alert("I will fold u BIČ") : null}</View>
-    </View>
+      >
+        <Text>Email:</Text>
+        <TextInput value={email} onChangeText={(e) => setEmail(e)}></TextInput>
+        <Text>Password:</Text>
+        <TextInput
+          value={password}
+          onChangeText={(e) => setPassword(e)}
+        ></TextInput>
+        <Button
+          title="submit"
+          onPress={() => {
+            if (password != "" && email != "") {
+              setEmpty(false);
+              return store.login(email.toLowerCase(), password);
+            }
+            setEmpty(true);
+          }}
+        ></Button>
+        <View>{empty ? <Text>Your form is empty!!</Text> : null}</View>
+      </View>
+      <Button
+        title="logout"
+        onPress={() => {
+          if (store.isLogged) {
+            store.logout();
+          }
+        }}
+      ></Button>
+      <Button title="islogged?" onPress={store.islogged}></Button>
+      <Button
+        title="session"
+        onPress={() => {
+          if (store.isLogged) {
+            store.session();
+            navigation.navigate("Chat");
+          }
+        }}
+      ></Button>
+      <View></View>
+    </ScrollView>
   );
 };
 
