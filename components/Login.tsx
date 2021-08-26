@@ -64,17 +64,13 @@ export const Login = ({ navigation }: any) => {
         title="SUMBIT"
         backgroundColor="#5AC013"
         onPress={() => {
-          store.login(email.toLowerCase(), password);
           if (password != "" && email != "") {
-            setEmpty(false);
             store.login(email.toLowerCase(), password);
             store.islogged();
             if (store.isLogged) {
               store.session();
               navigation.navigate("Chat");
             }
-          } else {
-            setEmpty(true);
           }
         }}
       ></CustomButton>

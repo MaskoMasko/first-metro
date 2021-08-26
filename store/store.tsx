@@ -77,7 +77,7 @@ const UserStore = types
           method: "get",
           url: "http://mockapi.ddns.net/sessionData",
         }).then((res: any) => {
-          // self.setUser(res.data);
+          self.setUser(res.data);
           console.log("SESSION:");
           console.log(res.data);
         });
