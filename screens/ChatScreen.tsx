@@ -11,7 +11,7 @@ export const ChatScreen = observer(({ navigation }) => {
       method: "get",
       url: `http://mockapi.ddns.net/getMyChats?id=${store.user.id}`,
     }).then((res: any) => {
-      console.log(res.data);
+      if (res.data == []) return;
       for (let chat of res.data) {
         store.setUserKeys(chat.key);
       }

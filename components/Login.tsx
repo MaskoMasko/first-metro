@@ -23,16 +23,17 @@ export const Login = ({ navigation }: any) => {
 
   // Want to use async/await? Add the async keyword to your outer function/method.
   // Enable pusher logging - don't include this in production
-  Pusher.logToConsole = true;
 
-  var pusher = new Pusher("0c9a424d02e39d31aada", {
-    cluster: "eu",
-  });
+  // Pusher.logToConsole = true;
 
-  var channel = pusher.subscribe("chat");
-  channel.bind("SendMessage", function (data) {
-    console.log(JSON.stringify(data));
-  });
+  // var pusher = new Pusher("0c9a424d02e39d31aada", {
+  //   cluster: "eu",
+  // });
+
+  // var channel = pusher.subscribe("chat");
+  // channel.bind("SendMessage", function (data) {
+  //   console.log(JSON.stringify(data));
+  // });
   return (
     <View
       style={{
