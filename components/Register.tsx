@@ -120,7 +120,7 @@ export const Register = observer(({ navigation }) => {
           style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
           value={email}
           placeholder="email"
-          onChangeText={(e) => setEmail(e)}
+          onChangeText={(e) => setEmail(e.toLowerCase())}
         ></TextInput>
         <TextInput
           style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}

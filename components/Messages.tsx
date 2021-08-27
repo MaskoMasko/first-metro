@@ -10,13 +10,17 @@ export const Messages = () => {
       }}
     >
       <Text
-        style={{ backgroundColor: "blue", width: 100, alignSelf: "flex-end" }}
+        style={{
+          backgroundColor: "aliceblue",
+          width: 100,
+          alignSelf: "flex-start",
+        }}
       >
         mi
       </Text>
       <Text
         style={{
-          alignSelf: "flex-start",
+          alignSelf: "flex-end",
           backgroundColor: "yellow",
           width: 100,
         }}

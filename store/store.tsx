@@ -1,35 +1,37 @@
 import { types, flow, getRoot } from "mobx-state-tree";
 import axios from "axios";
 
-const UserModel = types.model("iva", {
+const UserModel = types.model("user", {
   created_at: types.string,
   email: types.string,
   email_verified_at: types.null,
-  id: types.identifierNumber,
+  id: types.number,
   image: types.string,
   name: types.string,
   updated_at: types.string,
 });
-
 const UserStore = types
   .model("UserStore", {
     user: types.maybe(UserModel),
-    isLogged: false,
+    userKeys: types.array(types.string),
   })
   .actions((self) => {
     return {
       setUser(data) {
+        if (data == "NOT LOGGED IN") {
+          self.user = undefined;
+          return;
+        }
         self.user = data;
       },
-      checkIfLogged(data) {
-        if (data.data == "NOT LOGGED IN") {
-          self.isLogged = false;
-        } else {
-          self.isLogged = true;
-        }
+      setUserToNothing() {
+        self.user = undefined;
       },
-      setLogged(bool) {
-        self.isLogged = bool;
+      setUserKeys(key) {
+        self.userKeys.push(key);
+      },
+      getFirst(arr) {
+        return arr.splice(0, 1);
       },
     };
   })
@@ -59,7 +61,6 @@ const UserStore = types
             "content-type": "application/json",
           },
         }).then((res: any) => {
-          console.log("LOGIN:");
           console.log(res.config);
         });
       },
@@ -68,20 +69,36 @@ const UserStore = types
           method: "get",
           url: "http://mockapi.ddns.net/checkIfLoggedIn",
         }).then((res: any) => {
-          self.checkIfLogged(res);
-          console.log(res.data);
-        });
-      },
-      session: () => {
-        axios({
-          method: "get",
-          url: "http://mockapi.ddns.net/sessionData",
-        }).then((res: any) => {
+          if (res == undefined) {
+            return res.data;
+          }
           self.setUser(res.data);
-          console.log("SESSION:");
-          console.log(res.data);
         });
       },
+      sendMessage: () => {
+        axios({
+          method: "post",
+          url: "http://mockapi.ddns.net/message",
+          data: {
+            message: "gotoyes",
+          },
+          headers: {
+            "content-type": "application/json",
+          },
+        }).then((res: any) => {
+          console.log(res.config);
+        });
+      },
+      // session: () => {
+      //   axios({
+      //     method: "get",
+      //     url: "http://mockapi.ddns.net/sessionData",
+      //   }).then((res: any) => {
+      //     self.setUser(res.data);
+      //     console.log("SESSION:");
+      //     console.log(res.data);
+      //   });
+      // },
     };
   });
 

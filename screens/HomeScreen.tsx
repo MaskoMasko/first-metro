@@ -10,13 +10,13 @@ export const HomeScreen = ({ navigation }: any) => {
         <Login navigation={navigation}></Login>
         <View style={{ alignItems: "center" }}>
           <Text onPress={() => navigation.navigate("Register")}>
-            You dont have acc...
+            You dont have AK-47...
             <Text
               style={{
                 color: "#5AC013",
               }}
             >
-              Create Account
+              Buy AK-47
             </Text>
           </Text>
         </View>

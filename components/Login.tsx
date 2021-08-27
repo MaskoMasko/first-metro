@@ -18,28 +18,20 @@ export const Login = ({ navigation }: any) => {
   const [empty, setEmpty] = useState(false);
 
   React.useEffect(() => {
-    store.logout();
+    store.islogged();
   }, []);
-  const nisto = () => {
-    axios({
-      method: "get",
-      url: "http://mockapi.ddns.net/getMyChats?id=1",
-    }).then((res: any) => {
-      console.log(res);
-    });
-  };
 
   // Want to use async/await? Add the async keyword to your outer function/method.
   // Enable pusher logging - don't include this in production
-  // Pusher.logToConsole = true;
+  Pusher.logToConsole = true;
 
-  var pusher = new Pusher("be069965d415f82969e7", {
+  var pusher = new Pusher("0c9a424d02e39d31aada", {
     cluster: "eu",
   });
 
-  var channel = pusher.subscribe("pTvb4nzZpFCciOdo2YcbwyQNCSi06cJS");
-  channel.bind("SendPrivateMessage", function (data: any) {
-    // console.log(JSON.stringify(data));
+  var channel = pusher.subscribe("chat");
+  channel.bind("SendMessage", function (data) {
+    console.log(JSON.stringify(data));
   });
   return (
     <View
@@ -71,16 +63,16 @@ export const Login = ({ navigation }: any) => {
       ></TextInput>
       <CustomButton
         color="white"
-        title="SUMBIT"
+        title="SUBMIT"
         backgroundColor="#5AC013"
         onPress={() => {
           if (password != "" && email != "") {
             store.login(email.toLowerCase(), password);
             store.islogged();
-            if (store.isLogged) {
-              store.session();
+            if (store.user != undefined) {
               navigation.navigate("Chat");
             }
+            console.log(store.user);
           }
         }}
       ></CustomButton>

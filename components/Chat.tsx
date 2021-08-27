@@ -1,9 +1,13 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { Text, View, Image, Button } from "react-native";
 import { store } from "../store/store";
 import { Messages } from "./Messages";
 
-export const Chat = ({ navigation }) => {
+export const Chat = observer(({ navigation }) => {
+  React.useEffect(() => {
+    store.sendMessage();
+  }, []);
   return (
     <View style={{ backgroundColor: "#C8F3A9", height: 850 }}>
       <View style={{ backgroundColor: "#9CCB75" }}>
@@ -35,11 +39,11 @@ export const Chat = ({ navigation }) => {
         title="logut"
         onPress={() => {
           store.logout();
-          store.islogged();
+          store.setUserToNothing();
           navigation.navigate("Home");
         }}
       ></Button>
       <Messages></Messages>
     </View>
   );
-};
+});
