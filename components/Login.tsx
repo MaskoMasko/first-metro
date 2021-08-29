@@ -52,15 +52,19 @@ export const Login = ({ navigation }: any) => {
       </Text>
       <TextInput
         style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
-        value={email}
         placeholder="email"
-        onChangeText={(e) => setEmail(e)}
+        onSubmitEditing={(e) => {
+          console.log(e.nativeEvent.text);
+          setEmail(e.nativeEvent.text.toLowerCase());
+        }}
       ></TextInput>
       <TextInput
         placeholder="password"
         style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
-        value={password}
-        onChangeText={(e) => setPassword(e)}
+        onSubmitEditing={(e) => {
+          console.log(e.nativeEvent.text);
+          setPassword(e.nativeEvent.text);
+        }}
       ></TextInput>
       <CustomButton
         color="white"
@@ -68,7 +72,7 @@ export const Login = ({ navigation }: any) => {
         backgroundColor="#5AC013"
         onPress={() => {
           if (password != "" && email != "") {
-            store.login(email.toLowerCase(), password);
+            store.login(email, password);
             store.islogged();
             if (store.user != undefined) {
               navigation.navigate("Chat");

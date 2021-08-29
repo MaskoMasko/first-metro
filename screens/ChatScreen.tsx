@@ -34,8 +34,8 @@ export const ChatScreen = observer(({ navigation }) => {
   };
 
   React.useEffect(() => {
-    nisto();
-    nisto2();
+    // nisto();
+    // nisto2();
     // store.islogged();
   }, []);
   return <Chat navigation={navigation}></Chat>;

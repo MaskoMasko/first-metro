@@ -10,10 +10,21 @@ const UserModel = types.model("user", {
   name: types.string,
   updated_at: types.string,
 });
+const MessageModel = types.model("message", {
+  content: types.string,
+  created_at: types.string,
+  id: types.number,
+  updated_at: types.null,
+  user: UserModel,
+  user_id: types.number,
+});
+
 const UserStore = types
   .model("UserStore", {
     user: types.maybe(UserModel),
     userKeys: types.array(types.string),
+    allMessages: types.array(MessageModel),
+    yourMessages: types.array(types.string),
   })
   .actions((self) => {
     return {
@@ -32,6 +43,14 @@ const UserStore = types
       },
       getFirst(arr) {
         return arr.splice(0, 1);
+      },
+      setAllMessages(data) {
+        for (let message of data) {
+          self.allMessages.push(message);
+        }
+      },
+      setYourMessages(message) {
+        self.yourMessages.push(message);
       },
     };
   })
@@ -75,18 +94,27 @@ const UserStore = types
           self.setUser(res.data);
         });
       },
-      sendMessage: () => {
+      sendMessage: (mess) => {
         axios({
           method: "post",
           url: "http://mockapi.ddns.net/message",
           data: {
-            message: "gotoyes",
+            message: mess,
           },
           headers: {
             "content-type": "application/json",
           },
         }).then((res: any) => {
-          console.log(res.config);
+          // self.setYourMessages(mess);
+          // console.log(res.config);
+        });
+      },
+      getMessages: () => {
+        axios({
+          method: "get",
+          url: "http://mockapi.ddns.net/getMessage?whereToStart=0&howMany=15",
+        }).then((res: any) => {
+          self.setAllMessages(res.data);
         });
       },
       // session: () => {
