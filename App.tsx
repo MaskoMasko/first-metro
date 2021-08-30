@@ -35,71 +35,44 @@
 // }
 
 import * as React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { HomeScreen } from "./screens/HomeScreen";
+import { LoginScreen } from "./screens/LoginScreen";
+import { RegisterScreen } from "./screens/RegisterScreen";
+import { ChatScreen } from "./screens/ChatScreen";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
-const Stack = createStackNavigator();
+const client = new QueryClient();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Testing">
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen
+            name="Register"
+            options={{ headerShown: false }}
+            component={RegisterScreen}
+          />
+          <Stack.Screen
+            name="Chat"
+            options={{ headerShown: false }}
+            component={ChatScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
 export default App;
-
-// import * as React from "react";
-// import { Text } from "react-native";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { HomeScreen } from "./screens/HomeScreen";
-// import { LoginScreen } from "./screens/LoginScreen";
-// import { RegisterScreen } from "./screens/RegisterScreen";
-// import { ChatScreen } from "./screens/ChatScreen";
-// import { QueryClient, QueryClientProvider } from "react-query";
-
-// const Stack = createNativeStackNavigator();
-
-// const client = new QueryClient();
-
-// function App() {
-//   return (
-//     <QueryClientProvider client={client}>
-//       <NavigationContainer>
-//         <Stack.Navigator initialRouteName="Testing">
-//           <Stack.Screen
-//             options={{ headerShown: false }}
-//             name="Home"
-//             component={HomeScreen}
-//           />
-//           <Stack.Screen name="Login" component={LoginScreen} />
-//           <Stack.Screen
-//             name="Register"
-//             options={{ headerShown: false }}
-//             component={RegisterScreen}
-//           />
-//           <Stack.Screen
-//             name="Chat"
-//             options={{ headerShown: false }}
-//             component={ChatScreen}
-//           />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     </QueryClientProvider>
-//   );
-// }
-
-// export default App;
