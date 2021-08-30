@@ -1,35 +1,68 @@
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
-import { Text, View, Image, Button, ScrollView, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Button,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { store } from "../store/store";
 import { Messages } from "./Messages";
 import Pusher from "pusher-js/react-native";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 export const Chat = observer(({ navigation }) => {
   const [messageText, setMessageText] = useState("");
+  const [sent, setSent] = useState(false);
 
-  // Pusher.logToConsole = true;
+  const [sentMessage, setSentMessage] = useState(null);
+  // const { isLoading, isError, data } = useQuery(["sendMessage", sent], () => {
+  //   axios({
+  //     method: "post",
+  //     url: "http://mockapi.ddns.net/message",
+  //     data: {
+  //       message: messageText,
+  //     },
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   }).then((res: any) => {
+  //     store.setYourMessages(messageText)
+  //     console.log(res);
+  //   });
+  // });
+  // console.log(data);
 
-  var pusher = new Pusher("0c9a424d02e39d31aada", {
-    cluster: "eu",
-  });
-
-  var channel = pusher.subscribe("chat");
-  channel.bind("SendMessage", function (data) {
-    console.log(JSON.stringify(data.data));
-  });
-
-  React.useEffect(() => {
-    store.getMessages();
-  }, []);
   React.useEffect(() => {
     if (messageText != "") {
       store.sendMessage(messageText);
+    } else {
+      setSent(false);
     }
   }, [messageText]);
 
+  // Pusher.logToConsole = true;
+  var pusher = new Pusher("0c9a424d02e39d31aada", {
+    cluster: "eu",
+  });
+  var channel = pusher.subscribe("chat");
+  //
+  console.log(pusher);
+  var nisto = channel.bind("SendMessage", function GOYES(data) {
+    if (messageText != "") {
+      store.setYourMessages(data);
+    }
+    return data;
+  });
+  console.log(nisto.callbacks._callbacks._SendMessage[0].fn(messageText));
+
   return (
-    <View style={{ backgroundColor: "#C8F3A9", height: 850 }}>
+    <View style={{ backgroundColor: "#e4f5e8", height: 850 }}>
       <View style={{ backgroundColor: "#9CCB75" }}>
         <Text
           style={{
@@ -72,7 +105,7 @@ export const Chat = observer(({ navigation }) => {
           navigation.navigate("Home");
         }}
       ></Button>
-      <ScrollView>
+      {/* <ScrollView>
         {store.allMessages.map((messInfo, id) => {
           return (
             <View key={id}>
@@ -80,16 +113,16 @@ export const Chat = observer(({ navigation }) => {
             </View>
           );
         })}
-      </ScrollView>
+      </ScrollView> */}
+      <Messages></Messages>
       <TextInput
         style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}
         placeholder="message"
         onSubmitEditing={(e) => {
-          console.log(e.nativeEvent.text);
           setMessageText(e.nativeEvent.text);
+          setSent(true);
         }}
       ></TextInput>
-      {/* <Messages></Messages> */}
     </View>
   );
 });

@@ -6,31 +6,36 @@ import { HomeScreen } from "./screens/HomeScreen";
 import { LoginScreen } from "./screens/LoginScreen";
 import { RegisterScreen } from "./screens/RegisterScreen";
 import { ChatScreen } from "./screens/ChatScreen";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const Stack = createNativeStackNavigator();
 
+const client = new QueryClient();
+
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Home"
-          component={HomeScreen}
-        />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
-          name="Register"
-          options={{ headerShown: false }}
-          component={RegisterScreen}
-        />
-        <Stack.Screen
-          name="Chat"
-          options={{ headerShown: false }}
-          component={ChatScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <QueryClientProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen
+            name="Register"
+            options={{ headerShown: false }}
+            component={RegisterScreen}
+          />
+          <Stack.Screen
+            name="Chat"
+            options={{ headerShown: false }}
+            component={ChatScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
