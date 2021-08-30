@@ -95,7 +95,7 @@ export const Messages = () => {
       <View>
         {store.yourMessages.map((message, id) => {
           return (
-            <View style={styles.messageContainer}>
+            <View style={styles.messageContainer} key={id}>
               <View>
                 <Text
                   style={{

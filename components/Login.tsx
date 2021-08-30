@@ -18,22 +18,9 @@ export const Login = ({ navigation }: any) => {
   const [empty, setEmpty] = useState(false);
 
   React.useEffect(() => {
+    store.logout();
     store.islogged();
   }, []);
-
-  // Want to use async/await? Add the async keyword to your outer function/method.
-  // Enable pusher logging - don't include this in production
-
-  // Pusher.logToConsole = true;
-
-  // var pusher = new Pusher("0c9a424d02e39d31aada", {
-  //   cluster: "eu",
-  // });
-
-  // var channel = pusher.subscribe("chat");
-  // channel.bind("SendMessage", function (data) {
-  //   console.log(JSON.stringify(data));
-  // });
   return (
     <View
       style={{
@@ -72,12 +59,14 @@ export const Login = ({ navigation }: any) => {
         backgroundColor="#5AC013"
         onPress={() => {
           if (password != "" && email != "") {
-            store.login(email, password);
+            // store.logout();
             store.islogged();
+            store.login(email, password);
+            store.session();
             if (store.user != undefined) {
               navigation.navigate("Chat");
             }
-            console.log(store.user);
+            // console.log(store.user);
           }
         }}
       ></CustomButton>
@@ -85,49 +74,3 @@ export const Login = ({ navigation }: any) => {
     </View>
   );
 };
-
-// const pusher = new Pusher("local", {
-//   cluster: "mt1",
-//   authEndpoint: "http://mockapi.ddns.net/",
-//   auth: {
-//     headers: {
-//       "Content-Type": "application/json",
-//       "X-CSRF-TOKEN": "CSRF-Token",
-//     },
-//   },
-// });
-// let authorizer = (channel: any, options: any) => {
-//   return {
-//     authorize: (socketId: any, callback: any) => {
-//       fetch("/login", {
-//         method: "POST",
-//         headers: new Headers({ "Content-Type": "application/json" }),
-//         body: JSON.stringify({
-//           email: "masko@gmail.com",
-//           password: "password",
-//         }),
-//       })
-//         .then((res) => {
-//           console.log(res);
-//           if (!res.ok) {
-//             throw new Error(`Received ${res.statusCode} from /login`);
-//           }
-//           return res.json();
-//         })
-//         .then((data) => {
-//           console.log(data);
-//           callback(null, data);
-//         })
-//         .catch((err) => {
-//           callback(new Error(`Error calling auth endpoint: ${err}`), {
-//             auth: "",
-//           });
-//         });
-//     },
-//   };
-// };
-
-// const pusher = new Pusher("local", {
-//   cluster: "mt1",
-//   authorizer: authorizer,
-// });

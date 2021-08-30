@@ -39,7 +39,7 @@ export const Register = observer(({ navigation }) => {
       data: formData,
     })
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -140,8 +140,8 @@ export const Register = observer(({ navigation }) => {
           backgroundColor="#5AC013"
           onPress={() => {
             sendThat();
-            // store.login(email.toLowerCase(), password);
             // store.islogged();
+            // store.login(email.toLowerCase(), password);
             // store.session();
             // navigation.navigate("Chat");
           }}

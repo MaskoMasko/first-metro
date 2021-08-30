@@ -21,22 +21,6 @@ export const Chat = observer(({ navigation }) => {
   const [sent, setSent] = useState(false);
 
   const [sentMessage, setSentMessage] = useState(null);
-  // const { isLoading, isError, data } = useQuery(["sendMessage", sent], () => {
-  //   axios({
-  //     method: "post",
-  //     url: "http://mockapi.ddns.net/message",
-  //     data: {
-  //       message: messageText,
-  //     },
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //   }).then((res: any) => {
-  //     store.setYourMessages(messageText)
-  //     console.log(res);
-  //   });
-  // });
-  // console.log(data);
 
   React.useEffect(() => {
     if (messageText != "") {
@@ -46,21 +30,21 @@ export const Chat = observer(({ navigation }) => {
     }
   }, [messageText]);
 
-  // Pusher.logToConsole = true;
+  Pusher.logToConsole = true;
   var pusher = new Pusher("0c9a424d02e39d31aada", {
     cluster: "eu",
   });
   var channel = pusher.subscribe("chat");
   //
-  console.log(pusher);
-  var nisto = channel.bind("SendMessage", function GOYES(data) {
+  console.log(pusher.timeline.options.params);
+  var nisto = channel.bind("SendMessage", function sendMessage(data) {
     if (messageText != "") {
       store.setYourMessages(data);
+      setMessageText("");
     }
     return data;
   });
   console.log(nisto.callbacks._callbacks._SendMessage[0].fn(messageText));
-
   return (
     <View style={{ backgroundColor: "#e4f5e8", height: 850 }}>
       <View style={{ backgroundColor: "#9CCB75" }}>
@@ -73,47 +57,16 @@ export const Chat = observer(({ navigation }) => {
         >
           Global Chat
         </Text>
-        {/* {store.user == undefined ? (
-          <Text>Loading...</Text>
-        ) : (
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 24,
-                margin: 20,
-              }}
-            >
-              {store.user.name}
-            </Text>
-            <Image
-              source={{
-                uri: `http://mockapi.ddns.net/${store.user.image}`,
-              }}
-              style={{ width: 50, height: 50, margin: 20 }}
-            ></Image>
-          </View>
-        )} */}
       </View>
       <Button
         title="logut"
         onPress={() => {
           store.logout();
+          store.islogged();
           store.setUserToNothing();
           navigation.navigate("Home");
         }}
       ></Button>
-      {/* <ScrollView>
-        {store.allMessages.map((messInfo, id) => {
-          return (
-            <View key={id}>
-              <Text>{messInfo.content}</Text>
-            </View>
-          );
-        })}
-      </ScrollView> */}
       <Messages></Messages>
       <TextInput
         style={{ padding: 15, margin: 10, backgroundColor: "#E9EAE7" }}

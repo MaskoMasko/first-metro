@@ -65,7 +65,7 @@ const UserStore = types
           },
         }).then((res: any) => {
           console.log("LOGOUT:");
-          console.log(res.data);
+          // console.log(res.data);
         });
       },
       login: (email: string, password: string) => {
@@ -80,7 +80,7 @@ const UserStore = types
             "content-type": "application/json",
           },
         }).then((res: any) => {
-          console.log(res.config);
+          // console.log(res.config);
         });
       },
       islogged: () => {
@@ -91,7 +91,8 @@ const UserStore = types
           if (res == undefined) {
             return res.data;
           }
-          self.setUser(res.data);
+          // self.setUser(res.data);
+          // console.log(res.data);
         });
       },
       sendMessage: (mess) => {
@@ -100,12 +101,14 @@ const UserStore = types
           url: "http://mockapi.ddns.net/message",
           data: {
             message: mess,
+            name: self.user.name,
+            image: self.user.image,
           },
           headers: {
             "content-type": "application/json",
           },
         }).then((res: any) => {
-          // self.setYourMessages(mess);
+          self.setYourMessages(mess);
           // console.log(res.config);
         });
       },
@@ -117,16 +120,20 @@ const UserStore = types
           self.setAllMessages(res.data);
         });
       },
-      // session: () => {
-      //   axios({
-      //     method: "get",
-      //     url: "http://mockapi.ddns.net/sessionData",
-      //   }).then((res: any) => {
-      //     self.setUser(res.data);
-      //     console.log("SESSION:");
-      //     console.log(res.data);
-      //   });
-      // },
+      session: () => {
+        axios({
+          method: "get",
+          url: "http://mockapi.ddns.net/sessionData",
+        }).then((res: any) => {
+          console.log("SESSION:");
+          // console.log(res.data);
+          if (res.data != null) {
+            self.setUser(res.data);
+          } else {
+            self.setUserToNothing();
+          }
+        });
+      },
     };
   });
 

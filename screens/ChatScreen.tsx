@@ -6,7 +6,7 @@ import axios from "axios";
 import { Chat } from "../components/Chat";
 
 export const ChatScreen = observer(({ navigation }) => {
-  const nisto = () => {
+  const chats = () => {
     axios({
       method: "get",
       url: `http://mockapi.ddns.net/getMyChats?id=${store.user.id}`,
@@ -17,7 +17,7 @@ export const ChatScreen = observer(({ navigation }) => {
       }
     });
   };
-  const nisto2 = () => {
+  const chatMessages = () => {
     axios({
       method: "get",
       url: `http://mockapi.ddns.net/getMessageWithKey?key=${store.getFirst(
@@ -25,17 +25,17 @@ export const ChatScreen = observer(({ navigation }) => {
       )}`,
     }).then((res: any) => {
       for (let mess of res.data) {
-        console.log("PORKUA:");
-        console.log(mess.content);
-        console.log("OD KEGA:");
-        console.log(mess.username);
+        // console.log("PORKUA:");
+        // console.log(mess.content);
+        // console.log("OD KEGA:");
+        // console.log(mess.username);
       }
     });
   };
 
   React.useEffect(() => {
-    // nisto();
-    // nisto2();
+    // chats();
+    // chatMessages();
     // store.islogged();
   }, []);
   return <Chat navigation={navigation}></Chat>;
