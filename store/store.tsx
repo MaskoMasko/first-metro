@@ -109,7 +109,7 @@ const UserStore = types
           },
         }).then((res: any) => {
           self.setYourMessages(mess);
-          // console.log(res.config);
+          console.log(res);
         });
       },
       getMessages: () => {

@@ -20,8 +20,6 @@ export const Chat = observer(({ navigation }) => {
   const [messageText, setMessageText] = useState("");
   const [sent, setSent] = useState(false);
 
-  const [sentMessage, setSentMessage] = useState(null);
-
   React.useEffect(() => {
     if (messageText != "") {
       store.sendMessage(messageText);
@@ -40,7 +38,6 @@ export const Chat = observer(({ navigation }) => {
   var nisto = channel.bind("SendMessage", function sendMessage(data) {
     if (messageText != "") {
       store.setYourMessages(data);
-      setMessageText("");
     }
     return data;
   });
