@@ -22,3 +22,13 @@ this.handleBooks(books);
 this.handleAuthors(authors);
 this.handleShops(shops);
 }
+
+ILI
+
+i think da more i ovako
+let first = axios.get.....
+let second = axios.get.....
+
+axios.all([first, second]).then((...responses)=>{
+console.log(responses[0].data ili ca god)
+})
