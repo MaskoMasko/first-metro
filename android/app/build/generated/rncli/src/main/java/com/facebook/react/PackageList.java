@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.reactnativecommunity.cameraroll.CameraRollPackage;
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
 // react-native-safe-area-context
@@ -68,6 +70,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new CameraRollPackage(),
       new NetInfoPackage(),
+      new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage()
