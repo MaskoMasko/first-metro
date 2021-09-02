@@ -138,11 +138,11 @@ export const Register = observer(({ navigation }) => {
           color="white"
           title="SUMBIT"
           backgroundColor="#5AC013"
-          onPress={() => {
-            sendThat();
-            // store.islogged();
-            // store.login(email.toLowerCase(), password);
-            // store.session();
+          onPress={async () => {
+            await sendThat();
+            await store.islogged();
+            await store.login(email.toLowerCase(), password);
+            await store.session();
             // navigation.navigate("Chat");
           }}
         ></CustomButton>
